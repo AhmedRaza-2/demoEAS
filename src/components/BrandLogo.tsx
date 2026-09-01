@@ -92,8 +92,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       )}
 
       {/* Main Brand Title with Official Cyan Checkmark Badge */}
-      <div className="flex items-center justify-center gap-1.5 mt-0.5">
-        <h1 className={`font-['Syne',sans-serif] text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] via-[#38BDF8] to-[#22D3EE] drop-shadow-[0_0_12px_rgba(0,229,255,0.4)] ${titleSizes[size]}`}>
+      <div className="flex items-center justify-center gap-1.5 mt-0.5 whitespace-nowrap">
+        <h1 className={`font-['Plus_Jakarta_Sans',sans-serif] text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] via-[#38BDF8] to-[#22D3EE] drop-shadow-[0_0_12px_rgba(0,229,255,0.4)] ${titleSizes[size]}`}>
           Empire Auto Spa
         </h1>
 
@@ -118,7 +118,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
       {/* Tagline matching the image: "PPF, Ceramic Coatings, Detailing" */}
       {showTagline && (
-        <div className="flex items-center justify-center gap-2 mt-0.5">
+        <div className="flex items-center justify-center gap-2 mt-0.5 whitespace-nowrap">
           <p className={`font-['Outfit',sans-serif] font-semibold text-[#38BDF8]/90 tracking-widest uppercase ${subSizes[size]}`}>
             PPF, Ceramic Coatings, Detailing
           </p>

@@ -69,20 +69,51 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="flex items-center gap-3 text-xs ml-auto">
+            {/* WhatsApp trigger in top bar */}
             <a
               href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hi%20Empire%20Auto%20Spa,%20I%20would%20like%20to%20inquire%20about%20detailing/PPF%20for%20my%20car.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/80 font-medium transition-colors text-xs whitespace-nowrap"
             >
               <WhatsAppLogo className="w-3.5 h-3.5" />
               <span>WhatsApp Chat</span>
             </a>
 
+            {/* Auth / Account Profile Button in top bar */}
+            <button
+              onClick={onOpenAuth}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-white transition-all text-xs whitespace-nowrap"
+            >
+              {user ? (
+                <>
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName || 'User'}
+                      className="w-4 h-4 rounded-full object-cover border border-[#00E5FF]"
+                    />
+                  ) : (
+                    <div className="w-4 h-4 rounded-full bg-cyan-950 text-[#00E5FF] flex items-center justify-center font-bold text-[9px] border border-cyan-400/40">
+                      {user.displayName?.[0] || 'U'}
+                    </div>
+                  )}
+                  <span className="max-w-[70px] truncate font-bold text-slate-200 text-xs whitespace-nowrap">
+                    {user.displayName?.split(' ')[0] || 'Account'}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <UserIcon className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="font-bold text-slate-300 text-xs whitespace-nowrap">Sign In</span>
+                </>
+              )}
+            </button>
+
             {/* Admin trigger button */}
             <button
               onClick={onOpenAdmin}
-              className="flex items-center gap-1 text-[11px] bg-slate-900/90 hover:bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700/60 transition-colors ml-1"
+              className="flex items-center gap-1 text-[11px] bg-slate-900/90 hover:bg-slate-800 text-slate-300 px-2 py-1 rounded-lg border border-slate-700/60 transition-colors"
               title="Studio Management Dashboard"
             >
               <Lock className="w-3 h-3 text-[#00E5FF]" />
@@ -114,7 +145,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`px-3 py-1.5 rounded-xl text-xs tracking-wider uppercase font-bold transition-all duration-200 ${
+                  className={`px-3.5 py-2 rounded-xl text-xs tracking-wider uppercase font-bold whitespace-nowrap transition-all duration-200 ${
                     isActive
                       ? 'text-[#00E5FF] bg-cyan-950/60 border border-cyan-500/30'
                       : 'text-slate-300 hover:text-[#00E5FF] hover:bg-slate-800/50'
@@ -127,15 +158,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Action CTAs */}
-          <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
             {/* My Passes Icon Button */}
             <button
               onClick={onOpenMyBookings}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-[#00E5FF] transition-all flex items-center gap-1.5 text-xs relative"
+              className="p-2 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-[#00E5FF] transition-all flex items-center gap-1.5 text-xs whitespace-nowrap relative"
               title="View my appointment passes and live status"
             >
               <Calendar className="w-4 h-4 text-[#00E5FF]" />
-              <span className="hidden xl:inline text-xs font-semibold">Passes</span>
+              <span className="text-xs font-semibold whitespace-nowrap">Passes</span>
               {userBookingsCount > 0 && (
                 <span className="w-4 h-4 rounded-full bg-[#00E5FF] text-black text-[10px] font-bold flex items-center justify-center">
                   {userBookingsCount}
@@ -143,54 +174,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Auth / Account Profile Button */}
-            <button
-              onClick={onOpenAuth}
-              className="p-1.5 px-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-1.5 text-xs"
-            >
-              {user ? (
-                <>
-                  {user.photoURL ? (
-                    <img
-                      src={user.photoURL}
-                      alt={user.displayName || 'User'}
-                      className="w-5 h-5 rounded-full object-cover border border-[#00E5FF]"
-                    />
-                  ) : (
-                    <div className="w-5 h-5 rounded-full bg-cyan-950 text-[#00E5FF] flex items-center justify-center font-bold text-[10px] border border-cyan-400/40">
-                      {user.displayName?.[0] || 'U'}
-                    </div>
-                  )}
-                  <span className="max-w-[70px] truncate font-bold text-slate-200 text-xs">
-                    {user.displayName?.split(' ')[0] || 'Account'}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <UserIcon className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="font-bold text-slate-300 text-xs hidden sm:inline">Sign In</span>
-                </>
-              )}
-            </button>
-
-            <a
-              href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hi%20Empire%20Auto%20Spa,%20I%20want%20to%20get%20a%20quote%20for%20my%20car.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/80 transition-all flex items-center gap-1.5"
-              title="Chat on WhatsApp"
-            >
-              <WhatsAppLogo className="w-4 h-4" />
-              <span className="hidden sm:inline">WhatsApp</span>
-            </a>
-
             <button
               onClick={() => onOpenBooking()}
-              className="relative group overflow-hidden flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#00E5FF] via-[#38BDF8] to-[#22D3EE] text-black hover:brightness-110 transition-all duration-200 shadow-md shadow-cyan-500/25 active:scale-95 shrink-0"
+              className="relative group overflow-hidden flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#00E5FF] via-[#38BDF8] to-[#22D3EE] text-black hover:brightness-110 transition-all duration-200 shadow-md shadow-cyan-500/25 active:scale-95 shrink-0 whitespace-nowrap"
             >
-              <Calendar className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Book Appointment</span>
-              <span className="sm:hidden">Book</span>
+              <Calendar className="w-4 h-4" />
+              <span className="whitespace-nowrap">Book Appointment</span>
             </button>
           </div>
 
