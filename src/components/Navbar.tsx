@@ -50,42 +50,37 @@ export const Navbar: React.FC<NavbarProps> = ({
     <>
       {/* Top micro announcement bar */}
       <div className="bg-[#05080E] border-b border-cyan-950/60 text-xs py-1.5 px-4 text-slate-300 relative z-50">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-          <div className="flex items-center gap-4 text-[11px] sm:text-xs">
-            <span className="flex items-center gap-1.5 text-[#00E5FF] font-medium">
-              <MapPin className="w-3.5 h-3.5 text-[#00E5FF] shrink-0" />
-              <span>Street 111, G-9/4 Islamabad</span>
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 overflow-hidden">
+          <div className="flex items-center gap-3 text-[11px] sm:text-xs truncate">
+            <span className="flex items-center gap-1 text-[#00E5FF] font-medium truncate">
+              <MapPin className="w-3 h-3 text-[#00E5FF] shrink-0" />
+              <span className="truncate">G-9/4 Islamabad</span>
             </span>
-            <span className="hidden md:inline-block text-slate-700">|</span>
-            <span className="hidden md:flex items-center gap-1.5 text-slate-300">
+            <span className="hidden sm:inline-block text-slate-700">|</span>
+            <span className="hidden sm:flex items-center gap-1.5 text-slate-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Studio Open: 10:00 AM – 10:00 PM Daily
-            </span>
-            <span className="hidden lg:inline-block text-slate-700">|</span>
-            <span className="hidden lg:inline-flex items-center gap-1.5 text-sky-300 font-medium">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-              <span>German Detailing & TPU Self-Healing PPF</span>
+              Studio Open Daily
             </span>
           </div>
 
-          <div className="flex items-center gap-3 text-xs ml-auto">
+          <div className="flex items-center gap-3 text-xs shrink-0 ml-auto">
             <a
               href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hi%20Empire%20Auto%20Spa,%20I%20would%20like%20to%20inquire%20about%20detailing/PPF%20for%20my%20car.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+              className="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-medium transition-colors text-[11px]"
             >
-              <WhatsAppLogo className="w-3.5 h-3.5" />
-              <span>WhatsApp Chat</span>
+              <WhatsAppLogo className="w-3 h-3" />
+              <span>WhatsApp</span>
             </a>
 
             {/* Admin trigger button */}
             <button
               onClick={onOpenAdmin}
-              className="flex items-center gap-1 text-[11px] bg-slate-900/90 hover:bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700/60 transition-colors ml-1"
+              className="flex items-center gap-1 text-[10px] bg-slate-900/90 hover:bg-slate-800 text-slate-400 hover:text-slate-200 px-1.5 py-0.5 rounded border border-slate-800 transition-colors"
               title="Studio Management Dashboard"
             >
-              <Lock className="w-3 h-3 text-[#00E5FF]" />
+              <Lock className="w-3 h-3 text-cyan-400" />
               <span className="hidden sm:inline">Admin</span>
             </button>
           </div>
@@ -126,8 +121,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="flex items-center gap-2">
+          {/* Desktop Action CTAs (Hidden on mobile/tablet, visible on lg+) */}
+          <div className="hidden lg:flex items-center gap-2">
             {/* My Passes Icon Button */}
             <button
               onClick={onOpenMyBookings}
@@ -194,25 +189,28 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Mobile menu controls */}
-          <div className="flex xl:hidden items-center gap-2">
-            <button
-              onClick={onOpenAuth}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[#00E5FF]"
-              aria-label="Account"
+          {/* Mobile menu controls (Visible on screens < lg) */}
+          <div className="flex lg:hidden items-center gap-2">
+            <a
+              href={`https://wa.me/${COMPANY_INFO.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300"
+              title="Chat on WhatsApp"
             >
-              <UserIcon className="w-4 h-4" />
-            </button>
+              <WhatsAppLogo className="w-4 h-4" />
+            </a>
 
             <button
               onClick={() => onOpenBooking()}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#00E5FF] to-[#38BDF8] text-black"
+              className="px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#00E5FF] to-[#38BDF8] text-black shadow-md shadow-cyan-500/20"
             >
               Book
             </button>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-[#00E5FF]"
+              className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-[#00E5FF]"
               aria-label="Toggle navigation"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -222,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="xl:hidden bg-[#080B11] border-b border-cyan-900/50 px-4 pt-3 pb-6 space-y-2 mt-2">
+          <div className="lg:hidden bg-[#080B11] border-b border-cyan-900/50 px-4 pt-3 pb-6 space-y-2 mt-2 shadow-2xl">
             <div className="grid grid-cols-1 gap-1">
               {navLinks.map((link) => (
                 <a

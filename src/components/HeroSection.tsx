@@ -32,28 +32,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
             {/* Location & Trust Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-xs font-semibold tracking-wide backdrop-blur-md shadow-sm">
-              <span className="flex h-2 w-2 relative">
+            <div className="inline-flex flex-wrap sm:flex-nowrap items-center justify-center gap-1.5 sm:gap-2.5 px-3 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-[11px] sm:text-xs font-semibold tracking-wide backdrop-blur-md shadow-sm max-w-full">
+              <span className="flex h-2 w-2 relative shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
               </span>
-              <span className="flex items-center gap-1 font-mono uppercase">
+              <span className="flex items-center gap-1 font-mono uppercase shrink-0">
                 <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                 G-9 Markaz, Islamabad
               </span>
-              <span className="text-cyan-600">•</span>
-              <span className="text-slate-200 font-medium">Premier Luxury Detailing & PPF Studio</span>
+              <span className="hidden sm:inline text-cyan-600">•</span>
+              <span className="text-slate-200 font-medium text-[10px] sm:text-xs">Premier Luxury Detailing & PPF Studio</span>
             </div>
 
             {/* Headline */}
             <div className="space-y-2">
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] tracking-tight text-white uppercase leading-[1.15]">
+              <h1 className="text-3xl sm:text-5xl xl:text-6xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] tracking-tight text-white uppercase leading-[1.15]">
                 AUTOMOTIVE <br className="hidden sm:inline" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-teal-300 drop-shadow-[0_0_25px_rgba(6,182,212,0.5)]">
                   PERFECTION
                 </span> & SHIELD.
               </h1>
-              <p className="text-base sm:text-lg font-normal text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-sm sm:text-lg font-normal text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                 Protect your investment with <span className="text-white font-semibold">Self-Healing TPU PPF</span>, German nano-ceramic coatings, and multi-stage paint correction.
               </p>
             </div>
