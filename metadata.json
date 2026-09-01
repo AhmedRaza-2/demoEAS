@@ -1,0 +1,6 @@
+{
+  "name": "Empire Auto Spa - Luxury Detailing & PPF Islamabad",
+  "description": "Premier auto detailing, Paint Protection Film (PPF), Ceramic Coating, and UV Tints studio in G-9 Markaz, Islamabad.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

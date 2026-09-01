@@ -1,0 +1,129 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account information and role",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email", "displayName", "role"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Customer service booking appointment",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "carMake": { "type": "string" },
+        "carModel": { "type": "string" },
+        "carYear": { "type": "string" },
+        "vehicleType": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "selectedAddOns": { "type": "array", "items": { "type": "string" } },
+        "date": { "type": "string" },
+        "timeSlot": { "type": "string" },
+        "estimatedTotal": { "type": "string" },
+        "notes": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "in_progress", "completed", "cancelled"] },
+        "adminNotes": { "type": "string" },
+        "confirmedAt": { "type": "string" },
+        "source": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "customerName", "phone", "carMake", "carModel", "serviceName", "date", "timeSlot", "status"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer reviews and feedback",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "author": { "type": "string" },
+        "avatar": { "type": "string" },
+        "rating": { "type": "number" },
+        "date": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "carServiced": { "type": "string" },
+        "service": { "type": "string" },
+        "comment": { "type": "string" },
+        "likesCount": { "type": "number" },
+        "ownerReply": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "author", "rating", "comment", "service"]
+    },
+    "ContactInquiry": {
+      "title": "ContactInquiry",
+      "description": "Customer quote requests and contact messages",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "carDetails": { "type": "string" },
+        "serviceInterest": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["new", "contacted", "booked"] },
+        "submittedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "phone", "submittedAt"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "Studio vehicle transformations showcase",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "car": { "type": "string" },
+        "description": { "type": "string" },
+        "beforeImage": { "type": "string" },
+        "afterImage": { "type": "string" },
+        "packageUsed": { "type": "string" },
+        "completionTime": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "car", "category", "afterImage"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Vehicle booking appointments"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Studio customer reviews"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "ContactInquiry",
+      "description": "Customer quote inquiries"
+    },
+    "/gallery/{galleryId}": {
+      "schema": "GalleryItem",
+      "description": "Studio vehicle showcase gallery"
+    }
+  }
+}
