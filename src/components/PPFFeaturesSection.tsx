@@ -49,7 +49,7 @@ export const PPFFeaturesSection: React.FC<PPFFeaturesSectionProps> = ({
             <Shield className="w-3.5 h-3.5 text-cyan-400" />
             <span>Ultimate Paint Defense Technology</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Syne',sans-serif] uppercase tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] uppercase tracking-tight text-white">
             PAINT PROTECTION FILM <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-teal-300">(PPF)</span>
           </h2>
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed">

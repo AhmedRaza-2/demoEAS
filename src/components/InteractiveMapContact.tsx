@@ -69,7 +69,7 @@ export const InteractiveMapContact: React.FC<InteractiveMapContactProps> = ({
             <MapPin className="w-3.5 h-3.5" />
             <span>Islamabad Flagship Studio</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Syne',sans-serif] uppercase tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] uppercase tracking-tight text-white">
             VISIT US OR <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#38BDF8]">REQUEST A QUOTE</span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base">
@@ -163,37 +163,38 @@ export const InteractiveMapContact: React.FC<InteractiveMapContactProps> = ({
             </div>
 
             {/* Google Map Embedded Frame for G-9 Markaz Islamabad */}
-            <div className="rounded-3xl overflow-hidden border border-cyan-500/40 bg-slate-950 shadow-xl relative aspect-[16/10]">
+            <div className="rounded-3xl overflow-hidden border border-cyan-500/40 bg-slate-950 shadow-xl relative aspect-[16/10] group">
               <iframe
                 title="Empire Auto Spa Location G-9 Markaz Islamabad"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13278.435773821034!2d73.0234!3d33.6844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbe39d424b91b%3A0x6b8eb7c569e2c65a!2sG-9%20Markaz%2C%20Islamabad%2C%20Islamabad%20Capital%20Territory%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                src="https://maps.google.com/maps?q=Empire+Auto+Spa+Street+111+G-9+Markaz+Islamabad&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
-                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(85%) contrast(110%)' }}
-                allowFullScreen={false}
+                style={{ border: 0 }}
+                allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
 
               {/* Get Directions Floating Pill */}
-              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-black/85 backdrop-blur-md p-3 rounded-2xl border border-slate-700">
-                <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-lg bg-[#00E5FF] text-black">
-                    <Navigation className="w-4 h-4" />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-slate-950/90 backdrop-blur-md p-3 rounded-2xl border border-slate-800 shadow-xl">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-cyan-500 text-black">
+                    <Navigation className="w-4 h-4 fill-black" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white block">G-9 Markaz, Islamabad</span>
-                    <span className="text-[10px] text-[#00E5FF] font-mono">10 Mins from F-6/F-7 / Blue Area</span>
+                    <span className="text-xs font-bold text-white block">Street 111, G-9/4 Markaz, Islamabad</span>
+                    <span className="text-[10px] text-cyan-400 font-mono">10 Mins from F-6/F-7 / Blue Area</span>
                   </div>
                 </div>
 
                 <a
-                  href={COMPANY_INFO.googleMapsUrl}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=Empire+Auto+Spa+Street+111+G-9+Markaz+Islamabad`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-cyan-950 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-900"
+                  className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-black transition-all shadow-md shadow-cyan-500/20 flex items-center gap-1.5 shrink-0"
                 >
-                  Directions
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Get Directions</span>
                 </a>
               </div>
             </div>

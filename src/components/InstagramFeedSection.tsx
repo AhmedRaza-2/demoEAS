@@ -124,7 +124,7 @@ export const InstagramFeedSection: React.FC<InstagramFeedSectionProps> = ({
               <InstagramLogo className="w-4 h-4" />
               <span>Studio Feed • G-9 Markaz Islamabad</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold font-['Syne',sans-serif] uppercase text-white">
+            <h3 className="text-2xl sm:text-3xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] uppercase text-white">
               Latest Cars Detailed & Armored
             </h3>
           </div>
@@ -167,42 +167,48 @@ export const InstagramFeedSection: React.FC<InstagramFeedSectionProps> = ({
 
         {/* Live Embed View vs Grid View */}
         {viewMode === 'embed' ? (
-          <div className="rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 flex flex-col items-center justify-center space-y-6">
-            <div className="text-center space-y-2 max-w-lg">
-              <InstagramLogo className="w-12 h-12 mx-auto" />
-              <h4 className="text-xl font-bold font-['Syne',sans-serif] text-white">
-                Official @empire.auto_spa Instagram Hub
-              </h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Browse our real-time reels, client vehicle deliveries, PPF installations, and daily studio stories in G-9 Markaz Islamabad.
-              </p>
+          <div className="rounded-3xl bg-slate-900 border border-slate-800 p-4 sm:p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] shrink-0">
+                  <img
+                    src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=150&q=80"
+                    alt="Empire Auto Spa"
+                    className="w-full h-full rounded-full object-cover border-2 border-black"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-white font-['Plus_Jakarta_Sans',sans-serif] flex items-center gap-1.5">
+                    <span>empire.auto_spa</span>
+                    <span className="p-0.5 rounded-full bg-cyan-500 text-black text-[10px]">✓</span>
+                  </h4>
+                  <p className="text-xs text-slate-400">Empire Auto Spa G-9 Markaz Islamabad • Live Feed</p>
+                </div>
+              </div>
+
+              <a
+                href={COMPANY_INFO.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-lg shadow-pink-600/20"
+              >
+                <InstagramLogo className="w-4 h-4" />
+                <span>Follow on Instagram</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
             </div>
 
-            <div className="w-full max-w-xl rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 p-6 text-center space-y-4 shadow-xl">
-              <p className="text-xs font-mono text-cyan-400">
-                Direct Instagram Profile Link:
-              </p>
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm text-white font-mono break-all">
-                https://www.instagram.com/empire.auto_spa/
-              </div>
-              <div className="flex flex-wrap justify-center gap-3 pt-2">
-                <a
-                  href={COMPANY_INFO.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity flex items-center gap-2"
-                >
-                  <InstagramLogo className="w-4 h-4" />
-                  <span>Open @empire.auto_spa on Instagram</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className="px-5 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider bg-slate-800 text-slate-200 hover:bg-slate-700 transition-colors"
-                >
-                  Return to Studio Gallery
-                </button>
-              </div>
+            {/* Embedded Live Instagram Web Frame / Widget */}
+            <div className="w-full rounded-2xl overflow-hidden border border-slate-800 bg-black min-h-[500px] relative flex flex-col items-center justify-center p-2">
+              <iframe
+                title="Empire Auto Spa Instagram Live Profile"
+                src="https://www.instagram.com/p/C33_x4rS_4G/embed"
+                width="100%"
+                height="540"
+                className="rounded-xl border-0 w-full max-w-2xl mx-auto"
+                allowFullScreen={true}
+                loading="lazy"
+              ></iframe>
             </div>
           </div>
         ) : (

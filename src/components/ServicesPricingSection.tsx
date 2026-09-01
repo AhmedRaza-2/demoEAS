@@ -12,6 +12,11 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
   onSelectService
 }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'detailing' | 'ppf_coating' | 'specialty'>('all');
+  const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (id: string) => {
+    setExpandedCards(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
   const filteredPackages = SERVICES_PACKAGES.filter((pkg) => {
     if (activeTab === 'all') return true;
@@ -33,11 +38,11 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
             <Zap className="w-3.5 h-3.5" />
             <span>Official Price Menu & Packages</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Syne',sans-serif] uppercase tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] uppercase tracking-tight text-white">
             TRANSPARENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400">SERVICES & PRICING</span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base">
-            No hidden charges. From quick maintenance snow foam washes to German paint correction and full body PPF armor in G-9 Markaz Islamabad.
+            No hidden charges. Click any package card to view full inclusions or book directly.
           </p>
 
           {/* Filter Tabs */}
@@ -65,15 +70,16 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
 
         {/* Main Service Package Cards Grid */}
         {activeTab !== 'specialty' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
             {filteredPackages.map((pkg) => {
               const isGerman = pkg.germanProducts;
               const isPopular = pkg.popular;
+              const isExpanded = !!expandedCards[pkg.id];
 
               return (
                 <div
                   key={pkg.id}
-                  className={`group relative rounded-2xl flex flex-col justify-between overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+                  className={`group relative rounded-2xl flex flex-col justify-between overflow-hidden transition-all duration-300 ${
                     isGerman
                       ? 'bg-gradient-to-b from-slate-900 via-[#0B0F19] to-[#0A0D15] border-2 border-cyan-400/80 shadow-xl shadow-cyan-950/40'
                       : isPopular
@@ -84,7 +90,7 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
                   {/* Top Badge Strip */}
                   <div className="relative">
                     {/* Image Preview Banner */}
-                    <div className="h-44 w-full relative overflow-hidden bg-slate-950">
+                    <div className="h-40 w-full relative overflow-hidden bg-slate-950">
                       <img
                         src={pkg.image}
                         alt={pkg.name}
@@ -119,7 +125,7 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
                           <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block">
                             {pkg.category.toUpperCase()}
                           </span>
-                          <h2 className="text-lg font-extrabold font-['Syne',sans-serif] text-white group-hover:text-cyan-300 transition-colors">
+                          <h2 className="text-lg font-extrabold font-['Plus_Jakarta_Sans',sans-serif] text-white group-hover:text-cyan-300 transition-colors">
                             {pkg.name}
                           </h2>
                         </div>
@@ -128,13 +134,13 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
                   </div>
 
                   {/* Body Content */}
-                  <div className="p-5 flex-1 flex flex-col justify-between space-y-5">
+                  <div className="p-4 space-y-4">
                     
                     {/* Pricing Display */}
                     <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
                       <div>
                         <span className="text-[10px] text-slate-400 font-mono block">Package Price</span>
-                        <div className="text-2xl font-black font-['Syne',sans-serif] text-cyan-400">
+                        <div className="text-2xl font-black font-['Plus_Jakarta_Sans',sans-serif] text-cyan-400">
                           {pkg.priceDisplay}
                         </div>
                       </div>
@@ -150,28 +156,39 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
                       {pkg.shortDesc}
                     </p>
 
-                    {/* Features Checklist matching posters */}
-                    <div className="space-y-2 pt-1 border-t border-slate-800/80">
-                      <div className="text-[11px] font-mono uppercase text-slate-400 tracking-wider">
-                        Included In Package:
-                      </div>
-                      <ul className="space-y-1.5">
-                        {pkg.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-xs text-slate-200">
-                            <span className="mt-0.5 rounded-full p-0.5 bg-cyan-950 border border-cyan-500/40 text-cyan-400 shrink-0">
-                              <Check className="w-3 h-3" />
-                            </span>
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {/* Toggle Button for Details */}
+                    <button
+                      onClick={() => toggleExpand(pkg.id)}
+                      className="w-full py-2 px-3 rounded-xl bg-slate-950/90 border border-slate-800 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold flex items-center justify-between transition-colors"
+                    >
+                      <span>{isExpanded ? 'Hide Details' : 'View Package Features & Inclusions'}</span>
+                      <span className={`transform transition-transform text-cyan-400 ${isExpanded ? 'rotate-180' : ''}`}>▼</span>
+                    </button>
 
-                    {/* Recommended for note */}
-                    <div className="text-[11px] text-slate-400 bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/60 italic">
-                      <span className="text-cyan-400 font-semibold not-italic">Best For: </span>
-                      {pkg.recommendedFor}
-                    </div>
+                    {/* Features Checklist (Collapsible) */}
+                    {isExpanded && (
+                      <div className="space-y-3 pt-2 border-t border-slate-800/80 animate-fadeIn">
+                        <div className="text-[11px] font-mono uppercase text-slate-400 tracking-wider">
+                          Included In Package:
+                        </div>
+                        <ul className="space-y-1.5">
+                          {pkg.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-xs text-slate-200">
+                              <span className="mt-0.5 rounded-full p-0.5 bg-cyan-950 border border-cyan-500/40 text-cyan-400 shrink-0">
+                                <Check className="w-3 h-3" />
+                              </span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Recommended for note */}
+                        <div className="text-[11px] text-slate-400 bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/60 italic">
+                          <span className="text-cyan-400 font-semibold not-italic">Best For: </span>
+                          {pkg.recommendedFor}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Action Buttons */}
                     <div className="pt-2 grid grid-cols-2 gap-2">
@@ -191,7 +208,7 @@ export const ServicesPricingSection: React.FC<ServicesPricingSectionProps> = ({
                         href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hi%20Empire%20Auto%20Spa,%20I%20am%20interested%20in%20the%20${encodeURIComponent(pkg.name)}%20(${encodeURIComponent(pkg.priceDisplay)})%20package.`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full py-2.5 rounded-xl font-semibold uppercase tracking-wider text-xs bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-emerald-500/40 text-emerald-400 flex items-center justify-center gap-1.5 transition-colors"
+                        className="w-full py-2.5 rounded-xl font-semibold uppercase tracking-wider text-xs bg-emerald-950/80 hover:bg-emerald-900/80 border border-emerald-500/40 text-emerald-300 flex items-center justify-center gap-1.5 transition-colors"
                       >
                         <WhatsAppLogo className="w-3.5 h-3.5" />
                         <span>WhatsApp</span>

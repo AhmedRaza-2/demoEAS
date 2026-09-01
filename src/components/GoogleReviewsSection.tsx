@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { GOOGLE_REVIEWS, COMPANY_INFO } from '../data/mockData';
 import { GoogleReview } from '../types';
 import { GoogleLogo } from './BrandIcons';
-import { Star, CheckCircle2, ThumbsUp, MessageSquarePlus, Camera, Sparkles, X, ExternalLink, ShieldCheck, MapPin } from 'lucide-react';
+import { Star, CheckCircle2, ThumbsUp, MessageSquarePlus, Camera, Sparkles, X, ExternalLink, ShieldCheck, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const GoogleReviewsSection: React.FC = () => {
   const [reviews, setReviews] = useState<GoogleReview[]>(GOOGLE_REVIEWS);
@@ -13,6 +13,37 @@ export const GoogleReviewsSection: React.FC = () => {
   const [newRating, setNewRating] = useState(5);
   const [newComment, setNewComment] = useState('');
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        // If reached end, scroll smoothly back to start
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scrollRef.current.scrollBy({ left: 350, behavior: 'smooth' });
+        }
+      }
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const distance = 400;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -distance : distance,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +79,7 @@ export const GoogleReviewsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Rating Header Banner - Modeled directly on Google Knowledge Panel Card */}
-        <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 sm:p-8 mb-12 shadow-2xl relative overflow-hidden">
+        <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-6 sm:p-8 mb-8 shadow-2xl relative overflow-hidden">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             
             {/* Google Rating Overview */}
@@ -60,7 +91,7 @@ export const GoogleReviewsSection: React.FC = () => {
 
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                  <h2 className="text-2xl sm:text-3xl font-extrabold font-['Syne',sans-serif] text-white">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] text-white">
                     Empire Auto Spa
                   </h2>
                   <span className="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-[11px] font-mono text-cyan-300">
@@ -69,7 +100,7 @@ export const GoogleReviewsSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-center justify-center sm:justify-start gap-2.5">
-                  <span className="text-3xl font-black font-['Syne',sans-serif] text-white">
+                  <span className="text-3xl font-black font-['Plus_Jakarta_Sans',sans-serif] text-white">
                     {COMPANY_INFO.googleRating}.0
                   </span>
                   <div className="flex text-amber-400">
@@ -89,7 +120,7 @@ export const GoogleReviewsSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Google Review CTAs */}
+            {/* Google Review CTAs & Scroll Controls */}
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={() => setIsModalOpen(true)}
@@ -108,17 +139,41 @@ export const GoogleReviewsSection: React.FC = () => {
                 <span>View on Google Maps</span>
                 <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
               </a>
+
+              {/* Carousel Navigation Arrows */}
+              <div className="flex items-center gap-2 ml-2">
+                <button
+                  onClick={() => scroll('left')}
+                  className="p-3 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-black border border-slate-700 transition-colors text-slate-200"
+                  aria-label="Previous Reviews"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => scroll('right')}
+                  className="p-3 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-black border border-slate-700 transition-colors text-slate-200"
+                  aria-label="Next Reviews"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
           </div>
         </div>
 
-        {/* Reviews Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Reviews Cards Horizontal Scrollable Carousel */}
+        <div
+          ref={scrollRef}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          className="flex gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {reviews.map((rev) => (
             <div
               key={rev.id}
-              className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0A0D15] border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-4"
+              className="w-[320px] sm:w-[380px] shrink-0 snap-start p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0A0D15] border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-4 shadow-xl"
             >
               <div className="space-y-3">
                 {/* Author & Verified Tag */}

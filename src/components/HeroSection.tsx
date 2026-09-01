@@ -47,14 +47,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Headline */}
             <div className="space-y-2">
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold font-['Syne',sans-serif] tracking-tight text-white uppercase leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold font-['Plus_Jakarta_Sans',sans-serif] tracking-tight text-white uppercase leading-[1.15]">
                 AUTOMOTIVE <br className="hidden sm:inline" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-teal-300 drop-shadow-[0_0_25px_rgba(6,182,212,0.5)]">
                   PERFECTION
                 </span> & SHIELD.
               </h1>
-              <p className="text-lg sm:text-xl font-light text-slate-300 max-w-2xl mx-auto lg:mx-0">
-                Protect your investment with <span className="text-white font-medium">Self-Healing TPU PPF</span>, German nano-ceramic coatings, and multi-stage paint correction.
+              <p className="text-base sm:text-lg font-normal text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Protect your investment with <span className="text-white font-semibold">Self-Healing TPU PPF</span>, German nano-ceramic coatings, and multi-stage paint correction.
               </p>
             </div>
 
@@ -102,7 +102,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-bold uppercase tracking-wider text-sm bg-slate-900/90 border border-emerald-500/50 text-emerald-300 hover:bg-emerald-950/50 hover:border-emerald-400 transition-all flex items-center justify-center gap-2"
               >
                 <WhatsAppLogo className="w-4 h-4" />
-                <span>WhatsApp: {COMPANY_INFO.phone1}</span>
+                <span>WhatsApp Us</span>
               </a>
 
               <button
